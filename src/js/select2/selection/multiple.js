@@ -55,6 +55,9 @@ define([
   };
 
   MultipleSelection.prototype.clear = function () {
+    this.$selection.find(
+      '.select2-selection__rendered .select2-selection__choice').remove();
+    
     var $rendered = this.$selection.find('.select2-selection__rendered');
     $rendered.empty();
     $rendered.removeAttr('title');
@@ -104,7 +107,7 @@ define([
 
     var $rendered = this.$selection.find('.select2-selection__rendered');
 
-    Utils.appendMany($rendered, $selections);
+    Utils.prependMany($rendered, $selections);
   };
 
   return MultipleSelection;

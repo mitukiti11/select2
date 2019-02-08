@@ -71,6 +71,8 @@ test('empty update clears the selection', function (assert) {
   var $selection = selection.render();
   var $rendered = $selection.find('.select2-selection__rendered');
 
+  selection.update([{ text: 'testing' }]);
+
   $rendered.text('testing');
   $rendered.attr('title', 'testing');
 

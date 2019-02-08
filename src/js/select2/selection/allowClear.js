@@ -97,16 +97,18 @@ define([
       return;
     }
 
-    var removeAll = this.options.get('translations').get('removeAllItems');   
-
-    var $remove = $(
-      '<span class="select2-selection__clear" title="' + removeAll() +'">' +
-        '&times;' +
-      '</span>'
-    );
-    Utils.StoreData($remove[0], 'data', data);
-
-    this.$selection.find('.select2-selection__rendered').prepend($remove);
+    var $remove = this.$selection.find('.select2-selection__clear');
+    if ($remove.length === 0) {
+      var removeAll = this.options.get('translations').get('removeAllItems');   
+      $remove = $(
+        '<span class="select2-selection__clear" title="' + removeAll() +'">' +
+          '&times;' +
+        '</span>'
+      );
+      Utils.StoreData($remove[0], 'data', data);
+      this.$selection.find('.select2-selection__rendered').prepend($remove);
+    }
+    $remove.data('data', data);
   };
 
   return AllowClear;

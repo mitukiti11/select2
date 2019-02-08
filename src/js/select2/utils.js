@@ -272,8 +272,8 @@ define([
     $element.append($nodes);
   };
 
-  // Cache objects in Utils.__cache instead of $.data (see #4346)
   Utils.__cache = {};
+  // Cache objects in Utils.__cache instead of $.data (see #4346)
 
   var id = 0;
   Utils.GetUniqueElementId = function (element) {
@@ -332,6 +332,20 @@ define([
       delete Utils.__cache[id];
     }
   };
+  
+  // Prepend an array of jQuery nodes to a given element.
+  Utils.prependMany = function ($element, $nodes) {
+    // jQuery 1.7.x does not support $.fn.prepend() with an array
+    // Fall back to a jQuery object collection using $.fn.add()
+    if ($.fn.jquery.substr(0, 3) === '1.7') {
+      var $jqNodes = $();
 
+      $.map($nodes, function (node) {
+        $jqNodes = $jqNodes.add(node);
+      });
+
+      $nodes = $jqNodes;
+    }
+    $element.prepend($nodes);
   return Utils;
 });
